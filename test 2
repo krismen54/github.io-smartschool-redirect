@@ -3,27 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doorverwijzing</title>
+    <title>Doorverwijzing Test</title>
     <script>
-        function redirectToSmartschool() {
-            // Haal de huidige URL op
-            var currentURL = window.location.hostname;
-
-            // Definieer het pad en de parameters die aan de Smartschool-URL worden toegevoegd
-            var path = "/Documents/Index/Index/courseID/32/ssID/2179";
-
-            // Bouw de volledige URL op basis van het huidige subdomein
-            var newURL = "https://" + currentURL + path;
-
-            // Stuur de gebruiker door naar de nieuwe URL
-            window.location.href = newURL;
+        function redirectToGoogle() {
+            window.location.href = "https://www.google.com";
         }
 
         // Automatisch de gebruiker omleiden zodra de pagina laadt
-        window.onload = redirectToSmartschool;
+        window.onload = redirectToGoogle;
     </script>
 </head>
 <body>
-    <p>Je wordt doorverwezen naar je Smartschool-platform...</p>
+    <p>Je wordt doorverwezen naar Google...</p>
 </body>
 </html>
+
