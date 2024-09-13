@@ -1,0 +1,66 @@
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kies je Smartschool-platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .platform-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 200px;
+            height: 100px;
+        }
+        .platform-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function redirectToPlatform() {
+            // Controleer of het Smartschool-platform al in localStorage is opgeslagen
+            var smartschoolDomain = localStorage.getItem('smartschoolDomain');
+
+            if (smartschoolDomain) {
+                // Als het platform is opgeslagen, bouw de URL en leid de gebruiker om
+                var path = "/Documents/Index/Index/courseID/32/parentID/1180/ssID/2179";
+                var newURL = "https://" + smartschoolDomain + path;
+                window.location.href = newURL;
+            } else {
+                // Als er geen platform is opgeslagen, laat de gebruiker kiezen
+                document.getElementById('platform-selection').style.display = 'block';
+            }
+        }
+
+        function savePlatform(domain) {
+            // Sla het gekozen Smartschool-platform op in localStorage
+            localStorage.setItem('smartschoolDomain', domain);
+
+            // Leid de gebruiker om naar het gekozen platform
+            redirectToPlatform();
+        }
+
+        // Automatisch controleren en doorverwijzen bij het laden van de pagina
+        window.onload = redirectToPlatform;
+    </script>
+</head>
+<body>
+    <h1>Welkom! Kies je Smartschool-platform</h1>
+    <div id="platform-selection" style="display: none;">
+        <button class="platform-button" onclick="savePlatform('xplus.smartschool.be')">X plus</button>
+        <button class="platform-button" onclick="savePlatform('campusleopoldsburg.smartschool.be')">Campus FLX</button>
+        <button class="platform-button" onclick="savePlatform('voxpelt.smartschool.be')">VOX Pelt</button>
+    </div>
+    <p>Je keuze wordt onthouden voor toekomstige bezoeken.</p>
+</body>
+</html>
