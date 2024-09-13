@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
@@ -28,13 +29,24 @@
     </style>
     <script>
         function redirectToPlatform() {
-            // Controleer of het Smartschool-platform al in localStorage is opgeslagen
+            // Haal het opgeslagen platform op uit localStorage
             var smartschoolDomain = localStorage.getItem('smartschoolDomain');
 
+            // Haal ook de opgeslagen tool op uit localStorage
+            var selectedTool = localStorage.getItem('selectedTool');
+
             if (smartschoolDomain) {
-                // Als het platform is opgeslagen, bouw de URL en leid de gebruiker om
-                var path = "//Documents/Index/Index/courseID/32/parentID/1162/ssID/2179";
+                // Definieer de pad en de URL's voor verschillende tools
+                var paths = {
+                    'ms-stream': '/Documents/Index/Index/courseID/32/ssID/2179', // MS Stream pad
+                    'bookwidgets': '/Documents/Index/Index/courseID/32/parentID/1180/ssID/2179' // Bookwidgets pad
+                };
+
+                // Controleer welke tool is opgeslagen en bouw de URL op
+                var path = paths[selectedTool] || paths['ms-stream']; // Standaard naar MS Stream als geen tool is geselecteerd
                 var newURL = "https://" + smartschoolDomain + path;
+                
+                // Leid de gebruiker om
                 window.location.href = newURL;
             } else {
                 // Als er geen platform is opgeslagen, laat de gebruiker kiezen
@@ -42,11 +54,12 @@
             }
         }
 
-        function savePlatform(domain) {
-            // Sla het gekozen Smartschool-platform op in localStorage
+        function savePlatform(domain, tool) {
+            // Sla het gekozen Smartschool-platform en tool op in localStorage
             localStorage.setItem('smartschoolDomain', domain);
+            localStorage.setItem('selectedTool', tool);
 
-            // Leid de gebruiker om naar het gekozen platform
+            // Leid de gebruiker om naar het gekozen platform en tool
             redirectToPlatform();
         }
 
@@ -57,9 +70,12 @@
 <body>
     <h1>Welkom! Kies je Smartschool-platform</h1>
     <div id="platform-selection" style="display: none;">
-        <button class="platform-button" onclick="savePlatform('xplus.smartschool.be')">X plus</button>
-        <button class="platform-button" onclick="savePlatform('campusleopoldsburg.smartschool.be')">Campus FLX</button>
-        <button class="platform-button" onclick="savePlatform('voxpelt.smartschool.be')">VOX Pelt</button>
+        <button class="platform-button" onclick="savePlatform('xplus.smartschool.be', 'ms-stream')">X plus MS Stream</button>
+        <button class="platform-button" onclick="savePlatform('xplus.smartschool.be', 'bookwidgets')">X plus Bookwidgets</button>
+        <button class="platform-button" onclick="savePlatform('campusleopoldsburg.smartschool.be', 'ms-stream')">Campus FLX MS Stream</button>
+        <button class="platform-button" onclick="savePlatform('campusleopoldsburg.smartschool.be', 'bookwidgets')">Campus FLX Bookwidgets</button>
+        <button class="platform-button" onclick="savePlatform('voxpelt.smartschool.be', 'ms-stream')">VOX Pelt MS Stream</button>
+        <button class="platform-button" onclick="savePlatform('voxpelt.smartschool.be', 'bookwidgets')">VOX Pelt Bookwidgets</button>
     </div>
     <p>Je keuze wordt onthouden voor toekomstige bezoeken.</p>
 </body>
