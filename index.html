@@ -3,35 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doorverwijzing naar Smartschool</title>
+    <title>Kies je Smartschool-platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .platform-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 200px;
+            height: 100px;
+        }
+        .platform-button:hover {
+            background-color: #45a049;
+        }
+    </style>
     <script>
-        function redirectToSmartschool() {
-            // Check of het Smartschool-subdomein al is opgeslagen in localStorage
+        function redirectToPlatform() {
+            // Controleer of het Smartschool-platform al in localStorage is opgeslagen
             var smartschoolDomain = localStorage.getItem('smartschoolDomain');
 
-            if (!smartschoolDomain) {
-                // Als het niet is opgeslagen, vraag de gebruiker om het subdomein in te voeren
-                smartschoolDomain = prompt('Vul het Smartschool-subdomein in, bijvoorbeeld "campusleopoldsburg.smartschool.be":');
-
-                // Sla het subdomein op in localStorage voor toekomstig gebruik
-                localStorage.setItem('smartschoolDomain', smartschoolDomain);
+            if (smartschoolDomain) {
+                // Als het platform is opgeslagen, bouw de URL en leid de gebruiker om
+                var path = "/Documents/Index/Index/courseID/32/ssID/2179";
+                var newURL = "https://" + smartschoolDomain + path;
+                window.location.href = newURL;
+            } else {
+                // Als er geen platform is opgeslagen, laat de gebruiker kiezen
+                document.getElementById('platform-selection').style.display = 'block';
             }
-
-            // Definieer het pad dat aan de Smartschool-URL wordt toegevoegd
-            var path = "/Documents/Index/Index/courseID/32/ssID/2179";
-
-            // Bouw de volledige URL op basis van het opgeslagen Smartschool-subdomein
-            var newURL = "https://" + smartschoolDomain + path;
-
-            // Stuur de gebruiker door naar de nieuwe URL
-            window.location.href = newURL;
         }
 
-        // Automatisch de gebruiker omleiden zodra de pagina laadt
-        window.onload = redirectToSmartschool;
+        function savePlatform(domain) {
+            // Sla het gekozen Smartschool-platform op in localStorage
+            localStorage.setItem('smartschoolDomain', domain);
+
+            // Leid de gebruiker om naar het gekozen platform
+            redirectToPlatform();
+        }
+
+        // Automatisch controleren en doorverwijzen bij het laden van de pagina
+        window.onload = redirectToPlatform;
     </script>
 </head>
 <body>
-    <p>Je wordt doorverwezen naar je Smartschool-platform...</p>
+    <h1>Welkom! Kies je Smartschool-platform</h1>
+    <div id="platform-selection" style="display: none;">
+        <button class="platform-button" onclick="savePlatform('xplus.smartschool.be')">X plus</button>
+        <button class="platform-button" onclick="savePlatform('campusleopoldsburg.smartschool.be')">Campus FLX</button>
+        <button class="platform-button" onclick="savePlatform('voxpelt.smartschool.be')">VOX Pelt</button>
+    </div>
+    <p>Je keuze wordt onthouden voor toekomstige bezoeken.</p>
 </body>
 </html>
