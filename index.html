@@ -1,18 +1,27 @@
+<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doorverwijzing</title>
+    <title>Doorverwijzing naar Smartschool</title>
     <script>
         function redirectToSmartschool() {
-            // Haal de huidige URL op
-            var currentURL = window.location.hostname;
+            // Check of het Smartschool-subdomein al is opgeslagen in localStorage
+            var smartschoolDomain = localStorage.getItem('smartschoolDomain');
 
-            // Definieer het pad en de parameters die aan de Smartschool-URL worden toegevoegd
-            var path = "/Documents/Index/Index/courseID/32/parentID/1162/ssID/2179";
+            if (!smartschoolDomain) {
+                // Als het niet is opgeslagen, vraag de gebruiker om het subdomein in te voeren
+                smartschoolDomain = prompt('Vul het Smartschool-subdomein in, bijvoorbeeld "campusleopoldsburg.smartschool.be":');
 
-            // Bouw de volledige URL op basis van het huidige subdomein
-            var newURL = "https://" + currentURL + path;
+                // Sla het subdomein op in localStorage voor toekomstig gebruik
+                localStorage.setItem('smartschoolDomain', smartschoolDomain);
+            }
+
+            // Definieer het pad dat aan de Smartschool-URL wordt toegevoegd
+            var path = "/Documents/Index/Index/courseID/32/ssID/2179";
+
+            // Bouw de volledige URL op basis van het opgeslagen Smartschool-subdomein
+            var newURL = "https://" + smartschoolDomain + path;
 
             // Stuur de gebruiker door naar de nieuwe URL
             window.location.href = newURL;
