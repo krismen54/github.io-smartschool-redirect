@@ -1,15 +1,28 @@
-<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testpagina</title>
+    <title>Doorverwijzing</title>
+    <script>
+        function redirectToSmartschool() {
+            // Haal de huidige URL op
+            var currentURL = window.location.hostname;
+
+            // Definieer het pad en de parameters die aan de Smartschool-URL worden toegevoegd
+            var path = "/Documents/Index/Index/courseID/32/parentID/1162/ssID/2179";
+
+            // Bouw de volledige URL op basis van het huidige subdomein
+            var newURL = "https://" + currentURL + path;
+
+            // Stuur de gebruiker door naar de nieuwe URL
+            window.location.href = newURL;
+        }
+
+        // Automatisch de gebruiker omleiden zodra de pagina laadt
+        window.onload = redirectToSmartschool;
+    </script>
 </head>
 <body>
-    <h1>Welkom op mijn GitHub Pages!</h1>
-    <p>Deze pagina is correct gehost via GitHub Pages.</p>
-    <a href="https://www.google.com">Klik hier om naar Google te gaan</a>
+    <p>Je wordt doorverwezen naar je Smartschool-platform...</p>
 </body>
 </html>
-
-
